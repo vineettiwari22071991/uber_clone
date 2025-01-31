@@ -9,6 +9,7 @@ import OAuth from "@/components/OAuth";
 import { useSignUp } from '@clerk/clerk-expo'
 import { useRouter } from 'expo-router'
 import { ReactNativeModal } from 'react-native-modal'
+import { fetchAPI } from "@/lib/fetch";
 
 const SingUp = () => {
     const { isLoaded, signUp, setActive } = useSignUp()
@@ -63,7 +64,15 @@ const SingUp = () => {
             // If verification was completed, set the session to active
             // and redirect the user
             if (signUpAttempt.status === 'complete') {
-                //TODO : Create a user a DB
+                
+                await fetchAPI('/(api)/user', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        name: form.name,
+                        email: form.email,
+                        clerkId: signUpAttempt.createdUserId
+                    })
+                })
                 await setActive({ session: signUpAttempt.createdSessionId })
                 setVerfication({
                     ...verification,
