@@ -10,6 +10,7 @@ import {
   Image,
   FlatList,
   ActivityIndicator,
+  ScrollView
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -22,6 +23,7 @@ import { useLocationStore } from "@/store";
 import { Ride } from "@/types/type";
 
 const Home = () => {
+
   const { user } = useUser();
   const { signOut } = useAuth();
 
@@ -119,7 +121,7 @@ const Home = () => {
         className="px-5"
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={{
-          paddingBottom: 100,
+          paddingBottom:650
         }}
         ListEmptyComponent={() => (
           <View className="flex flex-col items-center justify-center">
